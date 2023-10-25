@@ -1,0 +1,19 @@
+graph TD
+
+subgraph "User Configuration"
+    A(User)
+    B[Configure Location and Weather Condition]
+    C[Save User Preferences]
+end
+
+subgraph "Scheduled Weather Checks"
+    D((Fetch Weather Data))
+    E[Check Weather Condition]
+    F[Send SMS Alert]
+end
+
+A --> B
+B --> C
+C --> D
+D --> E
+E -->|Weather Condition Detected| F
