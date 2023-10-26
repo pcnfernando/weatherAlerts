@@ -31,7 +31,7 @@ Follow these steps to get started with this demo:
    TWILIO_AUTH_TOKEN = <TOKEN>	# Type of STRING
    FROM_NUMBER = <NUMBER>	# Type of STRING
 
-    [weatherAlerts.store]
+   [weatherAlerts.store]
    host = "localhost"
    port = 3307
    user = "dbuser"
