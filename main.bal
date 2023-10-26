@@ -85,21 +85,24 @@ function sendSmsAlert(string contact, string location, string condition) returns
 }
 
 function matchesConfiguredCondition(string condition, WeatherAPIResponse response) returns boolean {
-    log:printInfo("Checking weather condition for " + condition + "for " + response.toString());
+    log:printInfo("Checking weather likely " + condition + "for " + response.toString());
     HourlyItem hourly = response.hourly[0];
     return hourly.pop > 0.5d && getWeatherConditionFromId(hourly.weather[0].id) == condition;
 }
 
-function getWeatherConditionFromId(int conditionId) returns string {
+function getWeatherConditionFromId(int conditionId) returns WeatherCondition {
     match conditionId / 100 {
         5 => {
-            return "Rain";
+            return Rain;
         }
         6 => {
-            return "Snow";
+            return Snow;
+        }
+        8 => {
+            return Clouds;
         }
         _ => {
-            return "Other";
+            return Other;
         }
     }
 }
@@ -113,9 +116,16 @@ isolated function getGeoLocation(string location) returns [decimal, decimal]|err
     return [geoLocation.lon, geoLocation.lat];
 }
 
+enum WeatherCondition {
+    Rain,
+    Snow,
+    Clouds,
+    Other
+};
+
 type Config record {|
     string location;
-    string weatherCondition;
+    WeatherCondition weatherCondition;
     string contactNumber;
 |};
 

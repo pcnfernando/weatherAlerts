@@ -1,5 +1,6 @@
 # Realtime Weather Alerting
 
+![Arch diagram](./weather-alerting.png)
 ## Getting Started
 
 Follow these steps to get started with this demo:
@@ -17,16 +18,20 @@ Follow these steps to get started with this demo:
    cd weatherAlerts
    ```
 
-4. Create a `Config.toml` file in the root directory with the following content:
+4. Run `bal persist generate` to generate the client objects, types, and SQL scripts. 
+   Refer https://ballerina.io/learn/manage-data-persistence-with-bal-persist/
+
+5. Create a `Config.toml` file in the root directory with the following content:
 
    ```toml
    # Configuration file for "weatherAlerts"
    # How to use see:
    # https://ballerina.io/learn/configure-ballerina-programs/provide-values-to-configurable-variables/#provide-via-toml-syntax
 
-
+   # Get the key from https://home.openweathermap.org/api_keys
    API_KEY = <WEATHER_API_KEY>	# Type of STRING
 
+   # Refer pre-requisites section in https://lib.ballerina.io/ballerinax/twilio/latest
    TWILIO_ACC_SId = <SID>	# Type of STRING
    TWILIO_AUTH_TOKEN = <TOKEN>	# Type of STRING
    FROM_NUMBER = <NUMBER>	# Type of STRING
@@ -41,12 +46,12 @@ Follow these steps to get started with this demo:
 
    You can modify the configuration as needed for your application.
 
-5. Run below command to configure the MySQL database
+6. Run below command to configure the MySQL database
    ```bash
    docker compose up
    ```
 
-6. Run the application using the Bal tool:
+7. Run the application using the Bal tool:
 
    ```bash
    bal run
@@ -54,7 +59,7 @@ Follow these steps to get started with this demo:
 
    This command will use the configuration in `Config.toml` to start your application.
 
-7. This will expose a user alert configurable endpoint in
+8. This will expose a user alert configurable endpoint in
    ``` 
    http://localhost:9090/weather
    ```
@@ -62,8 +67,8 @@ Follow these steps to get started with this demo:
    Example request
    ```
    {
-    "location": "string",
-    "condition": "string",
-    "contactNum": "string"
+    "location": "Nairobi",
+    "condition": "Rain",
+    "contactNum": "0000000000"
    }
    ```
