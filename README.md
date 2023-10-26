@@ -1,6 +1,6 @@
 # Realtime Weather Alerting
 
-![Arch diagram](./weather-alerting.png)
+![Arch diagram](./resources/weather-alerting.png)
 ## Getting Started
 
 Follow these steps to get started with this demo:
@@ -48,7 +48,7 @@ Follow these steps to get started with this demo:
 
 6. Run below command to configure the MySQL database
    ```bash
-   docker compose up
+   cd resources && docker compose up
    ```
 
 7. Run the application using the Bal tool:
