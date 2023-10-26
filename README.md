@@ -1,5 +1,7 @@
 # Realtime Weather Alerting
 
+Reference : [Africa's Talking Summit 2023 presentation ](./resources/Ballerina-AT-Summit.pdf)
+
 ![Arch diagram](./resources/weather-alerting.png)
 ## Getting Started
 
