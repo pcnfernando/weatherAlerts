@@ -36,6 +36,7 @@ service /weather on new http:Listener(9090) {
         return http:CREATED;
     }
 
+    // exposing a manual trigger to test the task
     isolated resource function get triggerJob() returns http:InternalServerError|http:Ok {
         do {
 	        _ = check task:scheduleJobRecurByFrequency(new Job(), 3600);
@@ -59,8 +60,7 @@ class Job {
         do {
             check from store:UserConfigurationInsert config in streamResult
                 let WeatherAPIResponse response = check weatherEP->/data/'2\.5/onecall(lat = config.lat,
-                    lon = config.lon, exclude = "current, minutely, daily", appid = API_KEY
-                )
+                    lon = config.lon, exclude = "current, minutely, daily", appid = API_KEY)
                 where matchesConfiguredCondition(config.weatherCondition, response)
                 do {
                     log:printInfo("Sending alert to " + config.contactNumber);
@@ -85,7 +85,6 @@ function sendSmsAlert(string contact, string location, string condition) returns
 }
 
 function matchesConfiguredCondition(string condition, WeatherAPIResponse response) returns boolean {
-    log:printInfo("Checking weather likely " + condition + "for " + response.toString());
     HourlyItem hourly = response.hourly[0];
     return hourly.pop > 0.5d && getWeatherConditionFromId(hourly.weather[0].id) == condition;
 }
